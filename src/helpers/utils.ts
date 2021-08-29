@@ -7,8 +7,7 @@ import {providers, injected, ProviderInfo } from "@/providers";
 
 export function checkInjectedProviders() {
     const result: { [id: string] : boolean} = {
-        injectedAvailable: !!window.ethereum || !!window.web3,
-        test: false
+        injectedAvailable: !!window.ethereum || !!window.web3
     }
     if (result.injectedAvailable) {
         let fallbackProvider = true;
@@ -35,7 +34,7 @@ export function checkInjectedProviders() {
     return result;
 }
 
-export function verifyInjectedProvider(check: string) {
+export function verifyInjectedProvider(check: string): boolean {
     return window.ethereum
         ? window.ethereum[check]
         : window.web3 &&
@@ -61,7 +60,7 @@ export function getInjectedProviderName() {
     return injectedProvider ? injectedProvider.name : null;
 }
 
-export function getProviderInfo(provider: { [x: string]: unknown; }) {
+export function getProviderInfo(provider: any) {
     if (!provider) return providers.FALLBACK;
     const checks = Object.values(providers)
         .filter(x => provider[x.check])
@@ -158,7 +157,7 @@ export function filterProviders(param: string, value: string) {
     if (!value) return providers.FALLBACK;
     const match = filterMatches(
         Object.values(providers),
-        ( x: { [x: string]: string; }) => x[param] === value,
+        ( x: any ) => x[param] === value,
         providers.FALLBACK
     )
     return match || providers.FALLBACK;
