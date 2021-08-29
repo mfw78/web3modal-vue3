@@ -2,7 +2,7 @@ import * as env from "detect-browser";
 
 import {CHAIN_DATA_LIST} from "../constants";
 import {themesList} from "../themes";
-import {providers, injected, ProviderInfo, ProviderType_INJECTED, ProviderType_WEB, ProviderType_QRCODE, ProviderType_HARDWARE} from "@/providers";
+import {providers, injected, ProviderInfo } from "@/providers";
 
 
 export function checkInjectedProviders() {
@@ -125,16 +125,16 @@ export function getProviderDescription(providerInfo: ProviderInfo) {
     }
     let description = "";
     switch (providerInfo.type) {
-        case ProviderType_INJECTED:
+        case "injected":
             description = `Connect to your ${providerInfo.name} Wallet`;
             break;
-        case ProviderType_WEB:
+        case "web":
             description = `Connect with your ${providerInfo.name} account`;
             break;
-        case ProviderType_QRCODE:
+        case "qrcode":
             description = `Scan with ${providerInfo.name} to connect`;
             break;
-        case ProviderType_HARDWARE:
+        case "hardware":
             description = `Connect to your ${providerInfo.name} Hardware Wallet`;
             break;
         default:
