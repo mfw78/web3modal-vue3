@@ -77,7 +77,6 @@
     "@vue/cli-plugin-typescript": "^4.5.13",
     "babel-eslint": "^10.1.0",
     "conventional-changelog-cli": "^2.1.1",
-    "equal-vue": "^0.79.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
