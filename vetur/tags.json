@@ -1,0 +1,13 @@
+{
+  "Web3Modal": {
+    "attributes": [
+      "lightbox-opacity",
+      "theme",
+      "cache-provider",
+      "disable-injected-provider",
+      "provider-options",
+      "network"
+    ],
+    "description": ""
+  }
+}
