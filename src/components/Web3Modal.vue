@@ -17,7 +17,7 @@ import { themesList } from "../themes"
 import Modal from "./Modal.vue"
 
 export default {
-  name: "Web3Modal",
+  name: "web3-modal",
   components: { Modal },
   props: {
     lightboxOpacity: {

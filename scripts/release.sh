@@ -11,6 +11,7 @@ then
 
   # commit
   VERSION=$VERSION npm run build
+  npm run build:vetur-meta
   git add dist
   git commit -m "build: bundle $VERSION"
   npm version $VERSION --message "chore(release): %s"

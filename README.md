@@ -4,15 +4,21 @@ A single Web3 / Ethereum provider solution for all Wallets
 
 ## Origins
 
-Forked for Vue3 compatibility from the excellent work done by @SmallRuralDog, whose original *web3modal-vue* package may be found at https://github.com/SmallRuralDog/web3modal-vue.
+Forked for Vue3 compatibility from the excellent work done by @SmallRuralDog, whose original
+_web3modal-vue_ package may be found at https://github.com/SmallRuralDog/web3modal-vue.
 
 ## Introduction
 
-Web3Modal is an easy-to-use library to help developers add support for multiple providers in their apps with a simple customizable configuration.
+Web3Modal is an easy-to-use library to help developers add support for multiple providers in their
+apps with a simple customizable configuration.
 
-By default Web3Modal Library supports injected providers like (**Metamask**, **Dapper**, **Gnosis Safe**, **Frame**, Web3 Browsers, etc) and **WalletConnect**, You can also easily configure the library to support **Portis**, **Fortmatic**, **Squarelink**, **Torus**, **Authereum**, **D'CENT Wallet** and **Arkane**.
+By default Web3Modal Library supports injected providers like (**Metamask**, **Dapper**, **Gnosis
+Safe**, **Frame**, Web3 Browsers, etc) and **WalletConnect**, You can also easily configure the
+library to support **Portis**, **Fortmatic**, **Squarelink**, **Torus**, **Authereum**, **D'CENT
+Wallet** and **Arkane**.
 
 ## React
+
 [web3modal](https://github.com/Web3Modal/web3modal)
 
 ## Usage
@@ -39,18 +45,18 @@ yarn add web3modal-vue3
 <template>
   <div id="app">
     <web3-modal-vue
-        ref="web3modal"
-        :theme="theme"
-        :provider-options="providerOptions"
-        cache-provider
+      ref="web3modal"
+      :theme="theme"
+      :provider-options="providerOptions"
+      cache-provider
     />
   </div>
 </template>
 <script>
-import Web3ModalVue from "web3modal-vue3";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import {web3Modal} from "./config/mixins";
-import Header from "@/components/Header";
+import Web3ModalVue from "web3modal-vue3"
+import WalletConnectProvider from "@walletconnect/web3-provider"
+import { web3Modal } from "./config/mixins"
+import Header from "@/components/Header"
 
 export default {
   components: {
@@ -60,7 +66,7 @@ export default {
   mixins: [web3Modal],
   data() {
     return {
-      theme: 'light',
+      theme: "light",
       providerOptions: {
         walletconnect: {
           package: WalletConnectProvider,
@@ -70,121 +76,119 @@ export default {
         }
       },
       number: 0,
-      balance: 0,
+      balance: 0
     }
   },
   created() {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      this.theme = 'dark'
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      this.theme = "dark"
     }
   },
   mounted() {
     this.$nextTick(async () => {
-      const web3modal = this.$refs.web3modal;
-      this.$store.commit('setWeb3Modal', web3modal)
+      const web3modal = this.$refs.web3modal
+      this.$store.commit("setWeb3Modal", web3modal)
       if (web3modal.cachedProvider) {
-        await this.$store.dispatch('connect')
+        await this.$store.dispatch("connect")
         this.subscribeMewBlockHeaders()
       }
-
     })
   },
   methods: {
     connect() {
-      this.$store.dispatch('connect')
-    },
+      this.$store.dispatch("connect")
+    }
   }
 }
 </script>
 ```
 
 ```js
-import {getLibrary} from "@/utils/web3";
-import {ethers} from "ethers";
-import {parseInt} from 'lodash'
+import { getLibrary } from "@/utils/web3"
+import { ethers } from "ethers"
+import { parseInt } from "lodash"
 
 const web3ModalStore = {
-    state: {
-        web3Modal: null,
+  state: {
+    web3Modal: null,
 
-        library: getLibrary(),
-        active: false,
-        account: null,
-        chainId: 0,
+    library: getLibrary(),
+    active: false,
+    account: null,
+    chainId: 0
+  },
+  mutations: {
+    setWeb3Modal(state, web3Modal) {
+      state.web3Modal = web3Modal
     },
-    mutations: {
-        setWeb3Modal(state, web3Modal) {
-            state.web3Modal = web3Modal
-        },
-        setLibrary(state, library) {
-            state.library = library
-        },
-        setActive(state, active) {
-            state.active = active
-        },
-        setAccount(state, account) {
-            state.account = account
-        },
-        setChainId(state, chainId) {
-            state.chainId = chainId
-        }
+    setLibrary(state, library) {
+      state.library = library
     },
-    actions: {
-        async connect({state, commit, dispatch}) {
-            const provider = await state.web3Modal.connect();
-
-            const library = new ethers.providers.Web3Provider(provider)
-
-            library.pollingInterval = 12000
-            commit('setLibrary', library)
-
-            const accounts = await library.listAccounts()
-            if (accounts.length > 0) {
-                commit('setAccount', accounts[0])
-            }
-            const network = await library.getNetwork()
-            commit('setChainId', network.chainId)
-            commit('setActive', true)
-
-            provider.on("connect", async (info) => {
-                let chainId = parseInt(info.chainId)
-                commit('setChainId', chainId)
-                console.log("connect", info)
-            });
-
-            provider.on("accountsChanged", async (accounts) => {
-                if (accounts.length > 0) {
-                    commit('setAccount', accounts[0])
-                } else {
-                    await dispatch('resetApp')
-                }
-                console.log("accountsChanged")
-            });
-            provider.on("chainChanged", async (chainId) => {
-                chainId = parseInt(chainId)
-                commit('setChainId', chainId)
-                console.log("chainChanged", chainId)
-            });
-
-        },
-        async resetApp({state, commit}) {
-            try {
-                await state.web3Modal.clearCachedProvider();
-            } catch (error) {
-                console.error(error)
-            }
-            commit('setAccount', null)
-            commit('setActive', false)
-            commit('setLibrary', getLibrary())
-        },
+    setActive(state, active) {
+      state.active = active
+    },
+    setAccount(state, account) {
+      state.account = account
+    },
+    setChainId(state, chainId) {
+      state.chainId = chainId
     }
+  },
+  actions: {
+    async connect({ state, commit, dispatch }) {
+      const provider = await state.web3Modal.connect()
+
+      const library = new ethers.providers.Web3Provider(provider)
+
+      library.pollingInterval = 12000
+      commit("setLibrary", library)
+
+      const accounts = await library.listAccounts()
+      if (accounts.length > 0) {
+        commit("setAccount", accounts[0])
+      }
+      const network = await library.getNetwork()
+      commit("setChainId", network.chainId)
+      commit("setActive", true)
+
+      provider.on("connect", async (info) => {
+        const chainId = parseInt(info.chainId)
+        commit("setChainId", chainId)
+        console.log("connect", info)
+      })
+
+      provider.on("accountsChanged", async (accounts) => {
+        if (accounts.length > 0) {
+          commit("setAccount", accounts[0])
+        } else {
+          await dispatch("resetApp")
+        }
+        console.log("accountsChanged")
+      })
+      provider.on("chainChanged", async (chainId) => {
+        chainId = parseInt(chainId)
+        commit("setChainId", chainId)
+        console.log("chainChanged", chainId)
+      })
+    },
+    async resetApp({ state, commit }) {
+      try {
+        await state.web3Modal.clearCachedProvider()
+      } catch (error) {
+        console.error(error)
+      }
+      commit("setAccount", null)
+      commit("setActive", false)
+      commit("setLibrary", getLibrary())
+    }
+  }
 }
-export default web3ModalStore;
+export default web3ModalStore
 ```
 
 ## Provider Options
 
-These are all the providers available with Web3Modal and how to configure their provider options:
+These are all the providers available with Web3Modal and how to configure theirprovider options:
 
 - [WalletConnect](https://github.com/Web3Modal/web3modal/blob/master/docs/providers/walletconnect.md)
 - [Fortmatic](https://github.com/Web3Modal/web3modal/blob/master/docs/providers/fortmatic.md)
@@ -203,9 +207,11 @@ These are all the providers available with Web3Modal and how to configure their 
 [Submit my Dapp](https://github.com/SmallRuralDog/web3modal-vue/issues/1)
 
 ## Example
+
 [https://github.com/SmallRuralDog/web3modal-vue/tree/master/example](https://github.com/SmallRuralDog/web3modal-vue/tree/master/example)
 
 ## Demo
+
 [https://smallruraldog.github.io/web3modal-vue](https://smallruraldog.github.io/web3modal-vue/#/)
 
 ## License
