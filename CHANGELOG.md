@@ -1,3 +1,7 @@
+## [1.1.6](https://github.com/mfw78/web3modal-vue3/compare/v1.1.5...v1.1.6) (2021-09-14)
+
+
+
 ## [1.1.5](https://github.com/mfw78/web3modal-vue3/compare/v1.1.4...v1.1.5) (2021-09-14)
 
 
