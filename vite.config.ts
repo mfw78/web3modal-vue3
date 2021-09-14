@@ -43,8 +43,7 @@ const config: UserConfig = {
           ethers: 'Ethers'
         },
       }
-    },
-    sourcemap: true
+    }
   },
 }
 

@@ -141,6 +141,8 @@ export default defineComponent({
 
     // mounted
     onMounted(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       window.updateWeb3Modal = this
     })
 
