@@ -1,14 +1,3 @@
-<template>
-  <Modal
-    :show="show"
-    :theme-colors="themeColors"
-    :user-options="userOptions"
-    :lightbox-opacity="lightboxOpacity"
-    @onClose="_toggleModal"
-  />
-</template>
-
-<script lang="ts">
 import { defineComponent } from "vue"
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
@@ -17,7 +6,7 @@ import { themesList } from "../themes"
 
 import Modal from "./Modal.vue"
 
-export default defineComponent({
+export const web3Modal = defineComponent({
   name: "Web3Modal",
   components: { Modal },
   props: {
@@ -177,6 +166,12 @@ export default defineComponent({
       updateTheme,
       toggleModal
     }
-  }
+  },
+  template: `<Modal
+    :show="show"
+    :theme-colors="themeColors"
+    :user-options="userOptions"
+    :lightbox-opacity="lightboxOpacity"
+    @onClose="_toggleModal"
+  /><slot />`
 })
-</script>
