@@ -1,4 +1,4 @@
-# Web3ModalVue bump
+# Web3ModalVue
 
 A single Web3 / Ethereum provider solution for all Wallets
 
