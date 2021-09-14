@@ -14,3 +14,5 @@ export const Web3ModalVuePlugin: Plugin = {
         })*/
     }
 }
+
+export const Web3ModalComponent = web3Modal
