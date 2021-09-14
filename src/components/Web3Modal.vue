@@ -171,6 +171,7 @@ export default defineComponent({
 
       connect,
       connectTo,
+      cachedProvider,
       setCachedProvider,
       clearCachedProvider,
       updateTheme,
