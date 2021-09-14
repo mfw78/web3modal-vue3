@@ -16,7 +16,9 @@
   </SProviderWrapper>
 </template>
 
-<script>
+<script lang="ts">
+/* eslint-disable vue/require-default-prop */
+import { defineComponent } from "vue"
 import styled from "vue3-styled-components"
 import {
   PROVIDER_WRAPPER_CLASSNAME,
@@ -51,7 +53,7 @@ const SName = styled("div", { themeColors: Object })`
   font-size: 24px;
   font-weight: 700;
   margin-top: 0.5em;
-  color: ${({ themeColors }) => themeColors.main};
+  color: ${({ themeColors }) => (themeColors ? themeColors.main : "rgb(12, 12, 13)")};
   @media screen and (max-width: 768px) {
     font-size: 5vw;
   }
@@ -60,7 +62,7 @@ const SDescription = styled("div", { themeColors: Object })`
   width: 100%;
   font-size: 18px;
   margin: 0.333em 0;
-  color: ${({ themeColors }) => themeColors.secondary};
+  color: ${({ themeColors }) => (themeColors ? themeColors.secondary : "rgb(169, 169, 188)")};
   @media screen and (max-width: 768px) {
     font-size: 4vw;
   }
@@ -72,7 +74,8 @@ const SProviderContainer = styled("div", { themeColors: Object })`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: ${({ themeColors }) => themeColors.background};
+  background-color: ${({ themeColors }) =>
+    themeColors ? themeColors.background : "rgb(255, 255, 255)"};
   border-radius: 12px;
   padding: 24px 16px;
   @media screen and (max-width: 768px) {
@@ -88,14 +91,17 @@ const SProviderWrapper = styled("div", { themeColors: Object })`
   flex-direction: column;
   cursor: pointer;
   border-radius: 0;
-  border: ${({ themeColors }) => `1px solid ${themeColors.border}`};
+  border: ${({ themeColors }) =>
+    `1px solid ${themeColors ? themeColors.border : "rgba(195, 195, 195, 0.14)"}`};
   @media (hover: hover) {
     &:hover > div {
-      background-color: ${({ themeColors }) => themeColors.hover};
+      background-color: ${({ themeColors }) =>
+        themeColors ? themeColors.hover : "rgba(195, 195, 195, 0.14)"};
     }
   }
 `
-export default {
+
+export default defineComponent({
   name: "Provider",
   components: {
     SProviderWrapper,
@@ -104,21 +110,35 @@ export default {
     SName,
     SIcon
   },
-  props: ["name", "logo", "description", "themeColors"],
+  props: {
+    name: {
+      type: String
+    },
+    logo: {
+      type: Object
+    },
+    description: {
+      type: String
+    },
+    themeColors: {
+      type: Object
+    }
+  },
   emits: ["onClick"],
-  data() {
+  setup(props, { emit }) {
+    // methods
+    const onClick = () => {
+      emit("onClick")
+    }
+
     return {
+      onClick,
       PROVIDER_WRAPPER_CLASSNAME,
       PROVIDER_CONTAINER_CLASSNAME,
       PROVIDER_ICON_CLASSNAME,
       PROVIDER_NAME_CLASSNAME,
       PROVIDER_DESCRIPTION_CLASSNAME
     }
-  },
-  methods: {
-    onClick() {
-      this.$emit("onClick")
-    }
   }
-}
+})
 </script>

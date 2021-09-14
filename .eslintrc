@@ -28,26 +28,6 @@
     "space-before-function-paren": ["off"],
     "indent": ["off"],
     "symbol-description": ["off"]
-    /* Preserved when eslint-plugin-md starts working.
-    "md/remark": [
-      "error",
-      {
-        // This object corresponds to object you would export in .remarkrc file
-        "plugins": [
-          "remark-frontmatter",
-          "remark-preset-lint-consistent",
-          "remark-preset-lint-recommended",
-          "remark-preset-lint-markdown-style-guide",
-          ["remark-lint-maximum-line-length", 100],
-          [
-            "remark-retext",
-            ["retext-english", "retext-syntax-urls", ["retext-spell", "dictionary-en-us"]]
-          ],
-          "retext-repeated-words",
-          "retext-usage"
-        ]
-      }
-    ]*/
   },
   "env": {
     "browser": true,
@@ -59,11 +39,14 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended",
-    //"plugin:md/recommended",
     "prettier"
   ],
   "plugins": ["eslint-plugin-prettier"],
-  "parser": "babel-eslint",
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module"
+  },
   "globals": {
     "describe": "readonly",
     "before": "readonly",
@@ -73,23 +56,4 @@
     "context": "readonly",
     "it": "readonly"
   }
-  /* Preserved for when eslint-plugin-md starts working.
-  "overrides": [
-    {
-      "files": ["*.md"],
-      "parser": "markdown-eslint-parser",
-      "rules": {
-        "prettier/prettier": [
-          "error",
-          // Important to force prettier to use "markdown" parser - otherwise it wouldn't be able to parse *.md files.
-          // You also can configure other options supported by prettier here - "prose-wrap" is
-          // particularly useful for *.md files
-          {
-            "parser": "markdown",
-            "proseWrap": "always"
-          }
-        ]
-      }
-    }
-  ]*/
 }

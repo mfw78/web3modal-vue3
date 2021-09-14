@@ -33,8 +33,9 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
 import styled from "vue3-styled-components"
+import { defineComponent, onMounted, onUpdated, ref } from "vue"
 import {
   MODAL_LIGHTBOX_CLASSNAME,
   MODAL_CONTAINER_CLASSNAME,
@@ -90,7 +91,8 @@ const SHitbox = styled.div`
 const SModalCard = styled("div", { themeColors: Object, show: Boolean, maxWidth: Number })`
   position: relative;
   width: 100%;
-  background-color: ${({ themeColors }) => themeColors.background};
+  background-color: ${({ themeColors }) =>
+    themeColors ? themeColors.background : "rgb(255, 255, 255)"};
   border-radius: 12px;
   margin: 10px;
   padding: 0;
@@ -110,41 +112,64 @@ const SModalCard = styled("div", { themeColors: Object, show: Boolean, maxWidth:
 
 }
 `
-export default {
+
+export default defineComponent({
   name: "Modal",
   components: { SModalCard, SHitbox, SModalContainer, SLightbox, Provider },
-  props: ["show", "themeColors", "userOptions", "lightboxOpacity"],
-  data() {
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    // eslint-disable-next-line vue/require-default-prop
+    themeColors: {
+      type: Object
+    },
+    // eslint-disable-next-line vue/require-default-prop
+    userOptions: {
+      type: Array
+    },
+    lightboxOpacity: {
+      type: Number,
+      default: 0.4
+    }
+  },
+  emits: ["onClose"],
+  setup(props, { emit }) {
+    const lightboxRef = ref<typeof SLightbox>()
+    const lightboxOffset = ref(0)
+
+    // mounted
+    onMounted(() => {
+      window.updateWeb3Modal = this
+    })
+
+    // updated
+    onUpdated(() => {
+      if (lightboxRef.value) {
+        const _lightboxRect = lightboxRef.value
+        const _lightboxOffset = _lightboxRect.top > 0 ? _lightboxRect.top : 0
+
+        if (_lightboxOffset !== lightboxOffset.value) {
+          lightboxOffset.value = _lightboxOffset
+        }
+      }
+    })
+
+    const onClose = () => {
+      emit("onClose")
+    }
+
     return {
-      lightboxOffset: 0,
+      onClose,
+      lightboxOffset,
       MODAL_LIGHTBOX_CLASSNAME,
       MODAL_CONTAINER_CLASSNAME,
       MODAL_HITBOX_CLASSNAME,
       MODAL_CARD_CLASSNAME
     }
-  },
-  mounted() {
-    window.updateWeb3Modal = this
-  },
-  updated() {
-    if (this.$refs.lightboxRef) {
-      const lightboxRect = this.$refs.lightboxRef
-      const lightboxOffset = lightboxRect.top > 0 ? lightboxRect.top : 0
-
-      if (
-        lightboxOffset !== this.lightboxOffset &&
-        lightboxOffset !== this.state.lightboxOffset
-      ) {
-        this.lightboxOffset = lightboxOffset
-      }
-    }
-  },
-  methods: {
-    onClose() {
-      this.$emit("onClose")
-    }
   }
-}
+})
 </script>
 <style scoped>
 .fade-enter-active,

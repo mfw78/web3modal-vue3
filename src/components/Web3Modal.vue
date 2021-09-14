@@ -9,6 +9,7 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue"
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
 import { getThemeColors } from "../helpers"
@@ -16,8 +17,8 @@ import { themesList } from "../themes"
 
 import Modal from "./Modal.vue"
 
-export default {
-  name: "web3-modal",
+export default defineComponent({
+  name: "Web3Modal",
   components: { Modal },
   props: {
     lightboxOpacity: {
@@ -37,6 +38,7 @@ export default {
       default: false
     },
     providerOptions: {
+      type: Object,
       default: () => {
         return {}
       }
@@ -46,109 +48,134 @@ export default {
       default: ""
     }
   },
-  data() {
+  setup(props) {
     const emptyUserOptions: UserOption[] = []
-    return {
-      show: false,
-      themeColors: getThemeColors(this.theme),
-      eventController: new EventController(),
-      providerController: new ProviderController({
-        disableInjectedProvider: this.$props.disableInjectedProvider,
-        cacheProvider: this.$props.cacheProvider,
-        providerOptions: this.$props.providerOptions,
-        network: this.$props.network
-      }),
-      userOptions: emptyUserOptions
+    let show = false
+    let themeColors = getThemeColors(props.theme)
+    const eventController = new EventController()
+    const providerController = new ProviderController({
+      disableInjectedProvider: props.disableInjectedProvider,
+      cacheProvider: props.cacheProvider,
+      providerOptions: props.providerOptions,
+      network: props.network
+    })
+    let userOptions = emptyUserOptions
+
+    // computed
+    const cachedProvider = (): string | null => {
+      return providerController.cachedProvider
     }
-  },
-  computed: {
-    cachedProvider(): string | null {
-      return this.providerController.cachedProvider
+
+    // methods
+    const on = (event: any, callback: any) => {
+      eventController.on({ event, callback })
+      return () => eventController.off({ event, callback })
     }
-  },
-  created() {
-    this.providerController.on(CONNECT_EVENT, (provider: any) => this.onConnect(provider))
-    this.providerController.on(ERROR_EVENT, (error: Error) => this.onError(error))
-    this.userOptions = this.providerController.getUserOptions()
-  },
-  methods: {
-    connect(): Promise<void> {
+
+    const connect = async () => {
       return new Promise((resolve, reject) => {
-        this.on(CONNECT_EVENT, (provider: any) => resolve(provider))
-        this.on(ERROR_EVENT, (error: Error) => reject(error))
-        this.on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
-        this.toggleModal()
+        on(CONNECT_EVENT, (provider: any) => resolve(provider))
+        on(ERROR_EVENT, (error: Error) => reject(error))
+        on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
+        toggleModal()
       })
-    },
-    connectTo(id: string): Promise<void> {
+    }
+
+    const connectTo = async (id: string) => {
       return new Promise((resolve, reject) => {
-        this.on(CONNECT_EVENT, (provider: any) => resolve(provider))
-        this.on(ERROR_EVENT, (error: Error) => reject(error))
-        this.on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
-        const provider = this.providerController.getProvider(id)
+        on(CONNECT_EVENT, (provider: any) => resolve(provider))
+        on(ERROR_EVENT, (error: Error) => reject(error))
+        on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
+        const provider = providerController.getProvider(id)
         if (!provider) {
           return reject(new Error(`Cannot connect to provider (${id}), check provider options`))
         }
-        resolve(this.providerController.connectTo(provider.id, provider.connector))
+        resolve(providerController.connectTo(provider.id, provider.connector))
       })
-    },
-    toggleModal(): void {
-      if (this.cachedProvider) {
-        this.providerController.connectToCachedProvider()
+    }
+
+    const toggleModal = () => {
+      if (cachedProvider()) {
+        providerController.connectToCachedProvider()
         return
       }
       /*if (this.userOptions && this.userOptions.length === 1 && this.userOptions[0].name) {
         this.userOptions[0].onClick();
         return;
       }*/
-      this._toggleModal()
-    },
-    on(event: any, callback: any) {
-      this.eventController.on({ event, callback })
-      return () => this.eventController.off({ event, callback })
-    },
-    off(event: any, callback: any): void {
-      this.eventController.off({ event, callback })
-    },
-    clearCachedProvider(): void {
-      this.providerController.clearCachedProvider()
-    },
-    setCachedProvider(id: string): void {
-      this.providerController.setCachedProvider(id)
-    },
-    updateTheme(theme: string): void {
-      this.themeColors = getThemeColors(theme)
-    },
-    _toggleModal(): void {
+      _toggleModal()
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const off = (event: any, callback: any): void => {
+      eventController.off({ event, callback })
+    }
+
+    const clearCachedProvider = () => {
+      providerController.clearCachedProvider()
+    }
+
+    const setCachedProvider = (id: string) => {
+      providerController.setCachedProvider(id)
+    }
+
+    const updateTheme = (theme: string) => {
+      themeColors = getThemeColors(theme)
+    }
+
+    const _toggleModal = () => {
       const d = typeof window !== "undefined" ? document : ""
       const body = d ? d.body || d.getElementsByTagName("body")[0] : ""
       if (body) {
-        if (this.show) {
+        if (show) {
           body.style.overflow = ""
         } else {
           body.style.overflow = "hidden"
         }
       }
-      this.show = !this.show
-    },
-    onError(error: Error): void {
-      if (this.show) {
-        this._toggleModal()
+      show = !show
+    }
+
+    const onError = (error: Error) => {
+      if (show) {
+        _toggleModal()
       }
-      this.eventController.trigger(ERROR_EVENT, error)
-    },
-    onConnect(provider: any): void {
-      if (this.show) {
-        this._toggleModal()
+      eventController.trigger(ERROR_EVENT, error)
+    }
+
+    const onConnect = (provider: any) => {
+      if (show) {
+        _toggleModal()
       }
-      this.eventController.trigger(CONNECT_EVENT, provider)
-    },
-    onClose(): void {
-      if (this.show) {
-        this._toggleModal()
+      eventController.trigger(CONNECT_EVENT, provider)
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const onClose = () => {
+      if (show) {
+        _toggleModal()
       }
-      this.eventController.trigger(CLOSE_EVENT)
+      eventController.trigger(CLOSE_EVENT)
+    }
+
+    providerController.on(CONNECT_EVENT, (provider: any) => onConnect(provider))
+    providerController.on(ERROR_EVENT, (error: Error) => onError(error))
+    userOptions = providerController.getUserOptions()
+
+    return {
+      show,
+      themeColors,
+      eventController,
+      providerController,
+      userOptions,
+
+      connect,
+      connectTo,
+      setCachedProvider,
+      clearCachedProvider,
+      updateTheme,
+      toggleModal
     }
   }
-}
+})
 </script>
