@@ -1,3 +1,12 @@
+## [1.1.8](https://github.com/mfw78/web3modal-vue3/compare/v1.1.7...v1.1.8) (2021-09-14)
+
+
+### Bug Fixes
+
+* 🐛 export web3modalcomponent ([ef6b7c3](https://github.com/mfw78/web3modal-vue3/commit/ef6b7c3612df9fa2b72fa24bd5bd82686d24b37e))
+
+
+
 ## [1.1.7](https://github.com/mfw78/web3modal-vue3/compare/v1.1.6...v1.1.7) (2021-09-14)
 
 
