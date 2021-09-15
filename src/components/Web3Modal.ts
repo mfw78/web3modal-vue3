@@ -1,4 +1,4 @@
-import { defineComponent } from "vue"
+import { defineComponent, h } from "vue"
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
 import { getThemeColors } from "../helpers"
@@ -37,7 +37,7 @@ export const web3Modal = defineComponent({
       default: ""
     }
   },
-  setup(props) {
+  setup(props, { expose }) {
     const emptyUserOptions: UserOption[] = []
     let show = false
     let themeColors = getThemeColors(props.theme)
@@ -151,13 +151,7 @@ export const web3Modal = defineComponent({
     providerController.on(ERROR_EVENT, (error: Error) => onError(error))
     userOptions = providerController.getUserOptions()
 
-    return {
-      show,
-      themeColors,
-      eventController,
-      providerController,
-      userOptions,
-
+    expose({
       connect,
       connectTo,
       cachedProvider,
@@ -165,13 +159,19 @@ export const web3Modal = defineComponent({
       clearCachedProvider,
       updateTheme,
       toggleModal
-    }
-  },
-  template: `<Modal
-    :show="show"
-    :theme-colors="themeColors"
-    :user-options="userOptions"
-    :lightbox-opacity="lightboxOpacity"
-    @onClose="_toggleModal"
-  /><slot />`
+    })
+
+    return () => h(
+      Modal,
+      {
+        props: {
+          show: show,
+          themeColors: themeColors,
+          userOptions: userOptions,
+          lightboxOpacity: props.lightboxOpacity,
+        },
+        onClose: _toggleModal
+      }
+    )
+  }
 })
