@@ -1,3 +1,12 @@
+## [1.2.6](https://github.com/mfw78/web3modal-vue3/compare/v1.2.5...v1.2.6) (2021-09-15)
+
+
+### Bug Fixes
+
+* 🐛 use injection instead of prop show ([0b5f6ec](https://github.com/mfw78/web3modal-vue3/commit/0b5f6ec754de7fd16247af2f51502a34cc162e3e))
+
+
+
 ## [1.2.5](https://github.com/mfw78/web3modal-vue3/compare/v1.2.4...v1.2.5) (2021-09-15)
 
 
