@@ -168,14 +168,12 @@ export const web3Modal = defineComponent({
     return () => h(
       Modal,
       {
-        props: {
-          show: show,
-          themeColors: themeColors,
-          userOptions: userOptions,
-          lightboxOpacity: props.lightboxOpacity,
-        },
+        show: show,
+        themeColors: themeColors,
+        userOptions: userOptions,
+        lightboxOpacity: props.lightboxOpacity,
         onClose: _toggleModal
-      },
+      }
     )
   }
 })
