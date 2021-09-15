@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import styled from "vue3-styled-components"
-import { defineComponent, onMounted, onUpdated, ref } from "vue"
+import { defineComponent, inject, onMounted, onUpdated, ref } from "vue"
 import {
   MODAL_LIGHTBOX_CLASSNAME,
   MODAL_CONTAINER_CLASSNAME,
@@ -117,10 +117,6 @@ export default defineComponent({
   name: "Modal",
   components: { SModalCard, SHitbox, SModalContainer, SLightbox, Provider },
   props: {
-    show: {
-      type: Boolean,
-      required: true
-    },
     themeColors: {
       type: Object,
       required: true
@@ -138,6 +134,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const lightboxRef = ref<typeof SLightbox>()
     const lightboxOffset = ref(0)
+    const show = inject("show")
 
     // mounted
     onMounted(() => {
@@ -163,6 +160,7 @@ export default defineComponent({
     }
 
     return {
+      show,
       onClose,
       lightboxOffset,
       MODAL_LIGHTBOX_CLASSNAME,
