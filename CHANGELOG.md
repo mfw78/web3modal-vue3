@@ -1,3 +1,12 @@
+## [1.2.5](https://github.com/mfw78/web3modal-vue3/compare/v1.2.4...v1.2.5) (2021-09-15)
+
+
+### Bug Fixes
+
+* 🐛 remove passing by ref ([782cfe3](https://github.com/mfw78/web3modal-vue3/commit/782cfe3472d384121f2f28c0a7e9f4fc322ecb22))
+
+
+
 ## [1.2.4](https://github.com/mfw78/web3modal-vue3/compare/v1.2.3...v1.2.4) (2021-09-15)
 
 
