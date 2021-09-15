@@ -2,7 +2,7 @@ import { Plugin } from "vue"
 
 import { web3Modal } from "./components/Web3Modal"
 
-export const Web3ModalVuePlugin: Plugin = {
+const plugin: Plugin = {
     install: (app, options?) => {
         app.component("web3-modal", web3Modal)
         /*app.mixin({
@@ -15,4 +15,5 @@ export const Web3ModalVuePlugin: Plugin = {
     }
 }
 
-export const Web3ModalComponent = web3Modal
+export { plugin as Web3ModalVuePlugin }
+export { web3Modal as Web3ModalComponent } from "./components/Web3Modal"

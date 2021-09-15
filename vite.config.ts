@@ -18,7 +18,7 @@ const config: UserConfig = {
   plugins: [
     vue(),
     Banner(
-`/**
+      `/**
  * name: ${pkg.name}
  * version: v${pkg.version}
  * description: ${pkg.description}
@@ -43,7 +43,8 @@ const config: UserConfig = {
           ethers: 'Ethers'
         },
       }
-    }
+    },
+    sourcemap: 'inline'
   },
 }
 

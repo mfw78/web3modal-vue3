@@ -1,4 +1,4 @@
-import { defineComponent, h } from "vue"
+import { defineComponent, h, provide, ref } from "vue"
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
 import { getThemeColors } from "../helpers"
@@ -38,8 +38,8 @@ export const web3Modal = defineComponent({
     }
   },
   setup(props, { expose }) {
-    const emptyUserOptions: UserOption[] = []
-    let show = false
+    let userOptions: UserOption[] = [] as UserOption[]
+    const show = ref(false)
     let themeColors = getThemeColors(props.theme)
     const eventController = new EventController()
     const providerController = new ProviderController({
@@ -48,7 +48,12 @@ export const web3Modal = defineComponent({
       providerOptions: props.providerOptions,
       network: props.network
     })
-    let userOptions = emptyUserOptions
+
+    // initialise the user options for web3modal
+    userOptions = providerController.getUserOptions()
+
+    // provides
+    provide('theme', props.theme)
 
     // computed
     const cachedProvider = (): string | null => {
@@ -116,24 +121,24 @@ export const web3Modal = defineComponent({
       const d = typeof window !== "undefined" ? document : ""
       const body = d ? d.body || d.getElementsByTagName("body")[0] : ""
       if (body) {
-        if (show) {
+        if (show.value) {
           body.style.overflow = ""
         } else {
           body.style.overflow = "hidden"
         }
       }
-      show = !show
+      show.value = !show.value
     }
 
     const onError = (error: Error) => {
-      if (show) {
+      if (show.value) {
         _toggleModal()
       }
       eventController.trigger(ERROR_EVENT, error)
     }
 
     const onConnect = (provider: any) => {
-      if (show) {
+      if (show.value) {
         _toggleModal()
       }
       eventController.trigger(CONNECT_EVENT, provider)
@@ -141,7 +146,7 @@ export const web3Modal = defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onClose = () => {
-      if (show) {
+      if (show.value) {
         _toggleModal()
       }
       eventController.trigger(CLOSE_EVENT)
@@ -149,7 +154,6 @@ export const web3Modal = defineComponent({
 
     providerController.on(CONNECT_EVENT, (provider: any) => onConnect(provider))
     providerController.on(ERROR_EVENT, (error: Error) => onError(error))
-    userOptions = providerController.getUserOptions()
 
     expose({
       connect,
@@ -171,7 +175,7 @@ export const web3Modal = defineComponent({
           lightboxOpacity: props.lightboxOpacity,
         },
         onClose: _toggleModal
-      }
+      },
     )
   }
 })
