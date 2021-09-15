@@ -127,7 +127,8 @@ export default defineComponent({
     },
     // eslint-disable-next-line vue/require-default-prop
     userOptions: {
-      type: Array
+      type: Array,
+      required: true
     },
     lightboxOpacity: {
       type: Number,
@@ -138,6 +139,8 @@ export default defineComponent({
   setup(props, { emit }) {
     const lightboxRef = ref<typeof SLightbox>()
     const lightboxOffset = ref(0)
+
+    console.log(props.userOptions)
 
     // mounted
     onMounted(() => {
