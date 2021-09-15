@@ -115,7 +115,7 @@ export default defineComponent({
       type: String
     },
     logo: {
-      type: Object
+      type: String
     },
     description: {
       type: String

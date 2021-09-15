@@ -118,14 +118,13 @@ export default defineComponent({
   components: { SModalCard, SHitbox, SModalContainer, SLightbox, Provider },
   props: {
     show: {
-      type: Boolean,
-      default: false
+      type: Object,
+      required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
     themeColors: {
-      type: Object
+      type: Object,
+      required: true
     },
-    // eslint-disable-next-line vue/require-default-prop
     userOptions: {
       type: Array,
       required: true
@@ -139,8 +138,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const lightboxRef = ref<typeof SLightbox>()
     const lightboxOffset = ref(0)
-
-    console.log(props.userOptions)
 
     // mounted
     onMounted(() => {
