@@ -118,7 +118,7 @@ export default defineComponent({
   components: { SModalCard, SHitbox, SModalContainer, SLightbox, Provider },
   props: {
     show: {
-      type: Object,
+      type: Boolean,
       required: true
     },
     themeColors: {

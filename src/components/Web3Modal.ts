@@ -39,7 +39,7 @@ export const web3Modal = defineComponent({
   },
   setup(props, { expose }) {
     let userOptions: UserOption[] = [] as UserOption[]
-    const show = ref(false)
+    let show = false
     let themeColors = getThemeColors(props.theme)
     const eventController = new EventController()
     const providerController = new ProviderController({
@@ -121,24 +121,24 @@ export const web3Modal = defineComponent({
       const d = typeof window !== "undefined" ? document : ""
       const body = d ? d.body || d.getElementsByTagName("body")[0] : ""
       if (body) {
-        if (show.value) {
+        if (show) {
           body.style.overflow = ""
         } else {
           body.style.overflow = "hidden"
         }
       }
-      show.value = !show.value
+      show = !show
     }
 
     const onError = (error: Error) => {
-      if (show.value) {
+      if (show) {
         _toggleModal()
       }
       eventController.trigger(ERROR_EVENT, error)
     }
 
     const onConnect = (provider: any) => {
-      if (show.value) {
+      if (show) {
         _toggleModal()
       }
       eventController.trigger(CONNECT_EVENT, provider)
@@ -146,7 +146,7 @@ export const web3Modal = defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onClose = () => {
-      if (show.value) {
+      if (show) {
         _toggleModal()
       }
       eventController.trigger(CLOSE_EVENT)
