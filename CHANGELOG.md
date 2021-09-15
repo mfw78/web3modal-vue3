@@ -1,3 +1,12 @@
+## [1.1.9](https://github.com/mfw78/web3modal-vue3/compare/v1.1.8...v1.1.9) (2021-09-15)
+
+
+### Features
+
+* 🎸 expose and render ([2fc2d7b](https://github.com/mfw78/web3modal-vue3/commit/2fc2d7b79cb9abb20a3688ab887f8f57c7ed0925))
+
+
+
 ## [1.1.8](https://github.com/mfw78/web3modal-vue3/compare/v1.1.7...v1.1.8) (2021-09-14)
 
 
