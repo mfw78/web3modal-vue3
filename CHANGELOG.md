@@ -1,3 +1,12 @@
+## [1.2.4](https://github.com/mfw78/web3modal-vue3/compare/v1.2.3...v1.2.4) (2021-09-15)
+
+
+### Bug Fixes
+
+* 🐛 prop types ([11473ab](https://github.com/mfw78/web3modal-vue3/commit/11473ab12de376c06ebe6f29617634994e6cff62))
+
+
+
 ## [1.2.3](https://github.com/mfw78/web3modal-vue3/compare/v1.2.2...v1.2.3) (2021-09-15)
 
 
