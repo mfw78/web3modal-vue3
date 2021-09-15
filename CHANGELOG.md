@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/mfw78/web3modal-vue3/compare/v1.2.0...v1.2.1) (2021-09-15)
+
+
+### Bug Fixes
+
+* 🐛 ref for show and userOptions array ([6a3283a](https://github.com/mfw78/web3modal-vue3/commit/6a3283aa727cb0f71eb3bef19a434a85336c274b))
+
+
+
 # [1.2.0](https://github.com/mfw78/web3modal-vue3/compare/v1.1.9...v1.2.0) (2021-09-15)
 
 
