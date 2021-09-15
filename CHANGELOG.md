@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/mfw78/web3modal-vue3/compare/v1.2.2...v1.2.3) (2021-09-15)
+
+
+### Bug Fixes
+
+* 🐛 render props ([933f6cb](https://github.com/mfw78/web3modal-vue3/commit/933f6cb130040f4364356faeccb7a38d2f221fc8))
+
+
+
 ## [1.2.2](https://github.com/mfw78/web3modal-vue3/compare/v1.2.1...v1.2.2) (2021-09-15)
 
 
