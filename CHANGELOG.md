@@ -1,3 +1,12 @@
+## [1.2.8](https://github.com/mfw78/web3modal-vue3/compare/v1.2.7...v1.2.8) (2021-09-16)
+
+
+### Bug Fixes
+
+* 🐛 show prop reactivity ([f8c8045](https://github.com/mfw78/web3modal-vue3/commit/f8c8045d481299d65583210a8ca9ce410e3ac939))
+
+
+
 ## [1.2.7](https://github.com/mfw78/web3modal-vue3/compare/v1.2.6...v1.2.7) (2021-09-16)
 
 
