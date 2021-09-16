@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/mfw78/web3modal-vue3/compare/v1.3.0...v1.3.1) (2021-09-16)
+
+
+### Bug Fixes
+
+* 🐛 fix close custom event ([889b521](https://github.com/mfw78/web3modal-vue3/commit/889b5216fdfa12b9459f96ab14459e2942ee463f))
+
+
+
 # [1.3.0](https://github.com/mfw78/web3modal-vue3/compare/v1.2.9...v1.3.0) (2021-09-16)
 
 
