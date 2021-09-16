@@ -70,12 +70,14 @@ export const web3Modal = defineComponent({
     }
 
     const connect = async () => {
-      return new Promise((resolve, reject) => {
-        on(CONNECT_EVENT, (provider: any) => resolve(provider))
-        on(ERROR_EVENT, (error: Error) => reject(error))
-        on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
-        toggleModal()
-      })
+      if (!show.value) {
+        return new Promise((resolve, reject) => {
+          on(CONNECT_EVENT, (provider: any) => resolve(provider))
+          on(ERROR_EVENT, (error: Error) => reject(error))
+          on(CLOSE_EVENT, () => reject(new Error("Modal closed by user")))
+          toggleModal()
+        })
+      }
     }
 
     const connectTo = async (id: string) => {
