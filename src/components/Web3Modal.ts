@@ -150,7 +150,6 @@ export const web3Modal = defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onClose = () => {
-      console.log("Trigger correct onClose()")
       if (show.value) {
         _toggleModal()
       }

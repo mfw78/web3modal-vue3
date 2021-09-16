@@ -9,7 +9,7 @@
       :show="show"
     >
       <SModalContainer :class="MODAL_CONTAINER_CLASSNAME" :show="show">
-        <SHitbox :class="MODAL_HITBOX_CLASSNAME" @click="onClose" />
+        <SHitbox :class="MODAL_HITBOX_CLASSNAME" @click="close" />
         <SModalCard
           :class="MODAL_CARD_CLASSNAME"
           :show="show"
@@ -134,7 +134,7 @@ export default defineComponent({
       default: 0.4
     }
   },
-  emits: ["onClose"],
+  emits: ["close"],
   setup(props, { emit }) {
     const lightboxRef = ref<typeof SLightbox>()
     const lightboxOffset = ref(0)
@@ -158,13 +158,12 @@ export default defineComponent({
       }
     })
 
-    const onClose = () => {
-      console.log("Modal attempted to close, click is being registered")
-      emit("onClose")
+    const close = () => {
+      emit("close")
     }
 
     return {
-      onClose,
+      close,
       lightboxOffset,
       MODAL_LIGHTBOX_CLASSNAME,
       MODAL_CONTAINER_CLASSNAME,
