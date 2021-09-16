@@ -34,17 +34,17 @@ const config: UserConfig = {
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['vue', 'ethers'],
+      external: ['vue', 'ethers', 'web3'],
       output: {
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
           vue: 'Vue',
-          ethers: 'Ethers'
+          ethers: 'Ethers',
+          web3: 'Web3'
         },
       }
     },
-    sourcemap: 'inline'
   },
 }
 

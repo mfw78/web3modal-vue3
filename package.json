@@ -58,7 +58,6 @@
     "attributes": "dist/vetur/attributes.json"
   },
   "dependencies": {
-    "@vueuse/core": "^6.3.3",
     "detect-browser": "^5.2.0",
     "ethers": "^5.4.6"
   },
