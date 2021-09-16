@@ -1,3 +1,12 @@
+## [1.3.3](https://github.com/mfw78/web3modal-vue3/compare/v1.3.2...v1.3.3) (2021-09-16)
+
+
+### Bug Fixes
+
+* 🐛 close when click outside of modal ([6cf87ae](https://github.com/mfw78/web3modal-vue3/commit/6cf87ae97f776e8e8a4fd7ebb5de6f76883cea26))
+
+
+
 ## [1.3.2](https://github.com/mfw78/web3modal-vue3/compare/v1.3.1...v1.3.2) (2021-09-16)
 
 
