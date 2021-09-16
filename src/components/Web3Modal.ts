@@ -1,5 +1,4 @@
 import { defineComponent, h, provide, ref } from "vue"
-import { onClickOutside } from '@vueuse/core'
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
 import { getThemeColors } from "../helpers"

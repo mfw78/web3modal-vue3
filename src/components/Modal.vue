@@ -159,6 +159,7 @@ export default defineComponent({
     })
 
     const onClose = () => {
+      console.log("Modal attempted to close, click is being registered")
       emit("onClose")
     }
 
