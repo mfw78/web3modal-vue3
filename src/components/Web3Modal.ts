@@ -151,6 +151,7 @@ export const web3Modal = defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onClose = () => {
+      console.log("Trigger correct onClose()")
       if (show.value) {
         _toggleModal()
       }
@@ -170,13 +171,6 @@ export const web3Modal = defineComponent({
       toggleModal
     })
 
-    // effects
-
-    // if click outside of the modal, close it.
-    onClickOutside(modal, (event) => {
-      if (show.value) onClose()
-    })
-
     return () => h(
       Modal,
       {
@@ -185,8 +179,9 @@ export const web3Modal = defineComponent({
         themeColors: themeColors,
         userOptions: userOptions,
         lightboxOpacity: props.lightboxOpacity,
-        onClose: _toggleModal,
-        ref: modal
+
+        ref: modal,
+        onClose: onClose
       }
     )
   }
