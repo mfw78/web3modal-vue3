@@ -1953,6 +1953,21 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.6.tgz#2c22bae88fe2b7b59fa68a9c9c4cd60bae2c1794"
   integrity sha512-uwX0Qs2e6kdF+WmxwuxJxOnKs/wEkMArtYpHSm7W+VY/23Tl8syMRyjnzEeXrNCAP0/8HZxEGkHJsjPEDNRuHw==
 
+"@vueuse/core@^6.3.3":
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.3.3.tgz#0682c01b50d28e91d3d76f27278600ee1692fa24"
+  integrity sha512-qa/0WYqcvqFKQmlkgsLGlXBrYcQeUi3fzHMIaxsD/lO/zm0IWBSN8CTFu91LwER5qNYs4DGhU5pu7jOdrTzAIQ==
+  dependencies:
+    "@vueuse/shared" "6.3.3"
+    vue-demi "*"
+
+"@vueuse/shared@6.3.3":
+  version "6.3.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-6.3.3.tgz#4e5c600ad1ed5bf2a8630ad0bd38edb1f4269f37"
+  integrity sha512-2+YPRhFNUXEhhvKNTWBtNU6hGkft9+mfYSVjI4hZu2U8KDbNNKF/215lBPzMYI2twScDtPsAssQ+vu5t9PBy0g==
+  dependencies:
+    vue-demi "*"
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -11047,6 +11062,11 @@ void-elements@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
+
+vue-demi@*:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.11.4.tgz#6101992fe4724cf5634018a16e953f3052e94e2a"
+  integrity sha512-/3xFwzSykLW2HiiLie43a+FFgNOcokbBJ+fzvFXd0r2T8MYohqvphUyDQ8lbAwzQ3Dlcrb1c9ykifGkhSIAk6A==
 
 vue-docgen-api@^4.41.1:
   version "4.41.1"

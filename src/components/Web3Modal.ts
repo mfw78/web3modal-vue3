@@ -1,4 +1,5 @@
 import { defineComponent, h, provide, ref } from "vue"
+import { onClickOutside } from '@vueuse/core'
 import { ProviderController, EventController, UserOption } from "../controllers"
 import { CLOSE_EVENT, CONNECT_EVENT, ERROR_EVENT } from "../constants"
 import { getThemeColors } from "../helpers"
@@ -41,6 +42,7 @@ export const web3Modal = defineComponent({
     let userOptions: UserOption[] = [] as UserOption[]
     let show = ref(false)
     let themeColors = getThemeColors(props.theme)
+    const modal = ref(null)
     const eventController = new EventController()
     const providerController = new ProviderController({
       disableInjectedProvider: props.disableInjectedProvider,
@@ -166,6 +168,13 @@ export const web3Modal = defineComponent({
       toggleModal
     })
 
+    // effects
+
+    // if click outside of the modal, close it.
+    onClickOutside(modal, (event) => {
+      if (show.value) onClose()
+    })
+
     return () => h(
       Modal,
       {
@@ -174,7 +183,8 @@ export const web3Modal = defineComponent({
         themeColors: themeColors,
         userOptions: userOptions,
         lightboxOpacity: props.lightboxOpacity,
-        onClose: _toggleModal
+        onClose: _toggleModal,
+        ref: modal
       }
     )
   }
