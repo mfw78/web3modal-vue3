@@ -1,3 +1,12 @@
+## [1.2.9](https://github.com/mfw78/web3modal-vue3/compare/v1.2.8...v1.2.9) (2021-09-16)
+
+
+### Features
+
+* 🎸 close on click outside ([95bbc01](https://github.com/mfw78/web3modal-vue3/commit/95bbc014c130d1504238a55af6bc1f2ce0824644))
+
+
+
 ## [1.2.8](https://github.com/mfw78/web3modal-vue3/compare/v1.2.7...v1.2.8) (2021-09-16)
 
 
