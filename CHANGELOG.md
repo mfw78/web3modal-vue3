@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/mfw78/web3modal-vue3/compare/v1.2.9...v1.3.0) (2021-09-16)
+
+
+### Bug Fixes
+
+* 🐛 don't connect if already trying ([2f6f78c](https://github.com/mfw78/web3modal-vue3/commit/2f6f78c83a59c6b63a4ab4596a189e45c1becd01))
+
+
+
 ## [1.2.9](https://github.com/mfw78/web3modal-vue3/compare/v1.2.8...v1.2.9) (2021-09-16)
 
 
